@@ -19,7 +19,7 @@ This workshop uses a simplified, single signature identifier setup with one iden
 
 See the `./images/vLEI-Workshop-architecture.png` diagram for a visual representation of the identifiers in green, the delegation between the GEDA and QVI, the credentials in yellow, and the KERIA, Witness, and Verifier (sally) infrastructure at the bottom of the diagram.
 
-## Instructions
+## Workshop Instructions
 
 Follow the module specific instructions as
 
@@ -42,31 +42,37 @@ Abbreviations and names:
 - AID: Autonomic Identifier
 - IPEX: Issuance and Presentation EXchange Protocol
 
-#### Scripts
+#### vLEI Module Scripts
+
+This section explains the purpose and contents of each script. You may skip to the [instructions](#instructions) section to get started if you are ready.
 
 - ./deploy.sh sets up the following components:
   - KERIA server
   - Three witnesses
   - vLEI Server (ACDC schema host)
-- ./headless-signify-wallet contains the Typescript code for:
+- ./sig-wallet contains the Typescript code for:
   - Setting up each of the Signify Controllers and their KERIA agents.
   - Resolving Schema OOBIs of vLEI schemas (QVI, LE, OOR Auth, ECR Auth, OOR, ECR)
   - Creating KERI AIDs for the QVI, LE, and OOR holders.
 - ./stop.sh shuts down the components started up by ./deploy.sh  
 - ./create-geda-aid.sh
-  - uses the appropriate script in `./headless-signify-wallet/src` to create the GEDA AID using the KERIpy KLI rather than KERIA and SignifyTS.
+  - uses the appropriate script in `./sig-wallet/src` to create the GEDA AID using the KERIpy KLI rather than KERIA and SignifyTS.
 - ./create-qvi-aid.sh
-  - uses the appropriate script in `./headless-signify-wallet/src` to create the QVI AID as a delegated AID from the GEDA AID.
+  - uses the appropriate script in `./sig-wallet/src` to create the QVI AID as a delegated AID from the GEDA AID.
 - ./create-le-aid.sh
-  - uses the appropriate script in `./headless-signify-wallet/src` to create the LE AID.
+  - uses the appropriate script in `./sig-wallet/src` to create the LE AID.
 - ./create-person-aid.sh
-  - uses the appropriate script in `./headless-signify-wallet/src` to create the person AID that will receive the OOR and ECR credentials.
+  - uses the appropriate script in `./sig-wallet/src` to create the person AID that will receive the OOR and ECR credentials.
 - ./create-qvi-acdc-credential.sh  
-  - uses the appropriate script in `./headless-signify-wallet/src` to issue the QVI credential from the GEDA AID to the QVI AID.
+  - uses the appropriate script in `./sig-wallet/src` to issue the QVI credential from the GEDA AID to the QVI AID.
 - ./create-le-acdc-credential.sh
-  - uses the appropriate script in `./headless-signify-wallet/src` to issue the LE credential from the QVI AID to the LE AID, chaining the LE to the QVI credential.
+  - uses the appropriate script in `./sig-wallet/src` to issue the LE credential from the QVI AID to the LE AID, chaining the LE to the QVI credential.
 - ./create-oor-acdc-credential.sh
-  - uses the appropriate script in `./headless-signify-wallet/src` to issue the OOR Auth credential from the LE AID to the QVI AID, chaining the OOR Auth credential to the LE credential, and then issuing the OOR credential from the QVI AID to the Person AID, chaining the OOR credential to the OOR Auth credential.
+  - uses the appropriate script in `./sig-wallet/src` to issue the OOR Auth credential from the LE AID to the QVI AID, chaining the OOR Auth credential to the LE credential, and then issuing the OOR credential from the QVI AID to the Person AID, chaining the OOR credential to the OOR Auth credential.
+
+
+#### vLEI Module Instructions
+
 
 
 ### Module 2 - TBD
