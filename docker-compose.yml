@@ -137,6 +137,21 @@ services:
       schema:
         condition: service_healthy
 
+  tsx-shell:
+    image: gleif/tsx:latest
+    build:
+      context: ./sig-wallet
+    container_name: tsx_shell
+    hostname: tsx_shell
+    stop_grace_period: 1s
+    volumes:
+      - ./task-scripts/workshop-env-vars.sh:/vlei/workshop-env-vars.sh
+      - ./task-scripts/tsx-script-runner.sh:/vlei/tsx-script-runner.sh
+      - ./task-data:/task-data
+      - ./sig-wallet:/vlei/sig-wallet
+    entrypoint: tail -f /dev/null
+    tty: true
+
   # Utility container for running
   vlei-shell:
     image: gleif/dws-base:0.3.1
@@ -147,6 +162,7 @@ services:
     stop_grace_period: 1s
     volumes:
       - shell-vol:/usr/local/var/keri
+      - ./task-scripts/workshop-env-vars.sh:/vlei/workshop-env-vars.sh
       - ./config/geda:/vlei/config
       - ./task-scripts:/vlei/task-scripts
     entrypoint: tail -f /dev/null

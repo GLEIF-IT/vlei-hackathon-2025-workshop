@@ -14,15 +14,11 @@ fi
 
 # Stop and remove containers
 echo "Stopping and removing containers..."
-docker compose down --remove-orphans
+docker compose down --remove-orphans --volumes
 
 # Remove Docker network
 echo "Removing Docker network vlei_workshop..."
 docker network rm vlei_workshop 2>/dev/null || echo "Network already removed or doesn't exist"
-
-# Clean up volumes (optional - uncomment if you want to remove all data)
-# echo "🗑️  Removing volumes..."
-# docker compose down -v
 
 echo "Environment stopped successfully!"
 echo ""

@@ -5,7 +5,7 @@
   "type": "module",
   "private": true,
   "dependencies": {
-    "signify-ts": "0.3.0-rc1"
+    "signify-ts": "0.3.0-rc2"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",

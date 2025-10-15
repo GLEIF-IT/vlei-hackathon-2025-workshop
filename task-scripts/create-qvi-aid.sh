@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# create-qvi-aid.sh - Create QVI AID as delegated identifier from GEDA
+# This script uses the headless SignifyTS wallet via tsx to create the QVI AID
+
+set -e
+
+echo "Creating QVI AID as delegated identifier from GEDA"
+
+source ./task-scripts/workshop-env-vars.sh
+# gets GEDA_PREFIX
+
+# ensure ./task-data/geda-info.json exists
+if [ ! -f "./task-data/geda-info.json" ]; then
+    echo "Error: ./task-data/geda-info.json not found. Please run create-geda-aid.sh first."
+    exit 1
+fi
+
+# Run the QVI AID creation script
+echo "Creating QVI AID using SignifyTS..."
+docker compose exec tsx-shell \
+  /vlei/tsx-script-runner.sh create-qvi-aid.ts 'docker' "${QVI_SALT}" "/task-data"
+
+echo "QVI AID created successfully!"
+echo "QVI info saved to ./task-data/qvi-info.json"
+
+
