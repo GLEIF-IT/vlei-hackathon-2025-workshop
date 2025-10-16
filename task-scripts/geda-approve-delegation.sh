@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 # geda-approve-delegation.sh - Approve delegation from GEDA to QVI AID
 
-set -3
+set -e
 echo "Approving delegation from GEDA to QVI AID"
 source ./task-scripts/workshop-env-vars.sh
-docker compose exec vlei-shell \
-  kli delegate confirm --name geda --alias geda --passcode "${GEDA_PASSCODE}"
+
+# approve delegation
+docker compose exec tsx-shell \
+  /vlei/tsx-script-runner.sh geda-approve-delegation.ts \
+    'docker' \
+    "${GEDA_SALT}" \
+    "geda" \
+    "/task-data/qvi-delegate-info.json"

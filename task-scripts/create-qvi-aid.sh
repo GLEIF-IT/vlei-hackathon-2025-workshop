@@ -4,10 +4,9 @@
 
 set -e
 
-echo "Creating QVI AID as delegated identifier from GEDA"
+echo "Creating QVI AID as a delegate of GEDA using SignifyTS and KERIA"
 
 source ./task-scripts/workshop-env-vars.sh
-# gets GEDA_PREFIX
 
 # ensure ./task-data/geda-info.json exists
 if [ ! -f "./task-data/geda-info.json" ]; then
@@ -16,11 +15,7 @@ if [ ! -f "./task-data/geda-info.json" ]; then
 fi
 
 # Run the QVI AID creation script
-echo "Creating QVI AID using SignifyTS..."
 docker compose exec tsx-shell \
   /vlei/tsx-script-runner.sh create-qvi-aid.ts 'docker' "${QVI_SALT}" "/task-data"
 
-echo "QVI AID created successfully!"
-echo "QVI info saved to ./task-data/qvi-info.json"
-
-
+echo "QVI AID created successfully"

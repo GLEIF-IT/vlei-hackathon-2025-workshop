@@ -1,15 +1,10 @@
 import {
-    CreateIdentiferArgs,
-    EventResult,
-    HabState,
     randomPasscode,
     ready,
     SignifyClient,
     Tier,
 } from 'signify-ts';
 import {EnvType, resolveEnvironment} from "./resolve-env.js";
-
-
 
 /**
  * Connect or boot a SignifyClient instance
@@ -32,6 +27,6 @@ export async function getOrCreateClient(
         if (!res.ok) throw new Error();
         await client.connect();
     }
-    console.log('client', {agent: client.agent?.pre, controller: client.controller.pre});
+    console.log('SignifyClient', {agent: client.agent?.pre, controller: client.controller.pre});
     return client;
 }

@@ -106,4 +106,5 @@ echo "   6. Run ./task-scdripts/create-le-acdc-credential.sh to issue LE credent
 echo "   7. Run ./task-scdripts/create-oor-acdc-credential.sh to issue OOR credentials"
 echo ""
 echo "To stop the environment, run ./stop.sh"
-
+echo "To run the whole process above run ./run-all.sh"
+echo ""

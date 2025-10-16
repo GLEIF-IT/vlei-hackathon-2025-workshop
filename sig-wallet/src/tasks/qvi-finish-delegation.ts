@@ -7,31 +7,48 @@ import {waitOperation} from "../client/operations.js";
 const args = process.argv.slice(2);
 const env = args[0] as 'docker' | 'testnet';
 const qviPasscode = args[1];
-const dataDir = args[2];
+const delegateAidName = args[2];
+const delegatorInfoPath = args[3];
+const delegateInfoPath = args[4];
+const delegateOutputPath = args[5];
 
-async function finishDelegation(qviPasscode: string, dataDir: string, environment: EnvType) {
-    console.log("Finishing QVI delegation...");
-    const qviClient = await getOrCreateClient(qviPasscode, environment);
-    // Read GEDA info
-    const gedaInfo = JSON.parse(await fs.promises.readFile(`${dataDir}/geda-info.json`, 'utf-8'));
+async function finishDelegation(delPre: string, delegateName: string, delOpName: string, passcode: string, environment: EnvType) {
+    console.log(`Finishing ${delPre} delegation to ${delegateName} on op: ${delOpName}...`);
+    const delegateClient = await getOrCreateClient(passcode, environment);
 
-    // Read QVI inception info
-    const qviDelInfo = JSON.parse(await fs.promises.readFile(`${dataDir}/qvi-delegate-info.json`, 'utf-8'));
-    console.log('qvi delegate info', qviDelInfo);
+    // refresh delegator key state to discover delegation anchor
+    const op: any = await delegateClient.keyStates().query(delPre, '1');
+    await waitOperation(delegateClient, op);
 
-    const op: any = await qviClient.keyStates().query(gedaInfo.prefix, '1');
-    await waitOperation(qviClient, op);
+    // wait for delegate inception to complete
+    const delOp: any = await delegateClient.operations().get(delOpName);
+    await waitOperation(delegateClient, delOp);
 
-    const delOp: any = await qviClient.operations().get(qviDelInfo.QVI.icpOpName);
-    await waitOperation(qviClient, delOp);
+    // finish identifier setup
+    // add endpoint role
+    const endRoleOp = await delegateClient.identifiers()
+        .addEndRole(delegateName, 'agent', delegateClient!.agent!.pre);
+    await waitOperation(delegateClient, await endRoleOp.op());
 
-    const aid = await qviClient.identifiers().get('qvi')
+    // get oobi
+    const oobiResp = await delegateClient.oobis().get(delegateName, 'agent');
+    const oobi = oobiResp.oobis[0]
+
+    const aid = await delegateClient.identifiers().get(delegateName)
     return {
-        QVI: {
-            aid: aid.prefix
-        }
+        aid: aid.prefix,
+        oobi
     }
 }
-const qviInfo: any = await finishDelegation(qviPasscode, dataDir, env);
-console.log("Writing QVI data to file...");
-await fs.promises.writeFile(`${dataDir}/qvi-info.json`, JSON.stringify(qviInfo));
+
+// Read delegator info
+const dgrInfo = JSON.parse(await fs.promises.readFile(delegatorInfoPath, 'utf-8'));
+
+// Read delegate inception info
+const dgtInfo = JSON.parse(await fs.promises.readFile(delegateInfoPath, 'utf-8'));
+console.log(`${delegateAidName} delegate info`, dgtInfo);
+
+// finish delegation and write data to file
+const delegationInfo: any = await finishDelegation(dgrInfo.aid, delegateAidName, dgtInfo.icpOpName, qviPasscode, env);
+await fs.promises.writeFile(delegateOutputPath, JSON.stringify(delegationInfo));
+console.log(`Delegate data written to ${delegateOutputPath}`);
