@@ -7,7 +7,7 @@ source ./task-scripts/workshop-env-vars.sh
 
 # approve delegation
 docker compose exec tsx-shell \
-  /vlei/tsx-script-runner.sh geda-approve-delegation.ts \
+  /vlei/tsx-script-runner.sh geda/geda-delegate-approve.ts \
     'docker' \
     "${GEDA_SALT}" \
     "geda" \

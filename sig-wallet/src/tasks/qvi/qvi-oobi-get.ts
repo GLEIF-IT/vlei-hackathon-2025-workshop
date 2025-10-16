@@ -1,6 +1,6 @@
-import {EnvType} from "../client/resolve-env.js";
-import {getOrCreateClient} from "../client/keystore-creation.js";
-import {waitOperation} from "../client/operations.js";
+import {EnvType} from "../../client/resolve-env.js";
+import {getOrCreateClient} from "../../client/identifiers.js";
+import {waitOperation} from "../../client/operations.js";
 
 const args = process.argv.slice(2);
 const env = args[0] as 'docker' | 'testnet';

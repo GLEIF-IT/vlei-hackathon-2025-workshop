@@ -11,3 +11,7 @@ export QVI_SALT='0ABZi_wCWBhxFNEenxtf40mL'
 export LE_SALT='0ACzkItDY-F7lqI9ZtTQ1qR5'
 export PERSON_SALT='0ADckowyGuNwtJUPLeRqZvTp'
 
+export GEDA_REGISTRY='geda-qvi-registry'
+
+export QVI_SCHEMA_SAID='EBfdlu8R27Fbx-ehrqwImnK-8Cm79sqbAQ4MmvEAYqao'
+

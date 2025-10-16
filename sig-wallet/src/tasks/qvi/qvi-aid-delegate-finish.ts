@@ -1,7 +1,7 @@
 import fs from 'fs';
-import {EnvType} from "../client/resolve-env.js";
-import {getOrCreateClient} from "../client/keystore-creation.js";
-import {waitOperation} from "../client/operations.js";
+import {EnvType} from "../../client/resolve-env.js";
+import {getOrCreateClient} from "../../client/identifiers.js";
+import {waitOperation} from "../../client/operations.js";
 
 // Pull in arguments from the command line and configuration
 const args = process.argv.slice(2);

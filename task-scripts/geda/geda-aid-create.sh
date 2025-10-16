@@ -12,7 +12,7 @@ source ./task-scripts/workshop-env-vars.sh
 
 # Create GEDA Agent and AID
 docker compose exec tsx-shell \
-  /vlei/tsx-script-runner.sh create-geda-aid.ts \
+  /vlei/tsx-script-runner.sh geda/geda-aid-create.ts \
     'docker' \
     "${GEDA_SALT}" \
     "/task-data"

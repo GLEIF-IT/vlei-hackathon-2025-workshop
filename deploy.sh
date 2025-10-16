@@ -24,7 +24,7 @@ docker network create vlei_workshop --driver bridge 2>/dev/null || echo "vlei_wo
 
 # Stop and remove existing containers
 echo "Cleaning up existing containers..."
-docker compose down --remove-orphans 2>/dev/null || true
+docker compose down --remove-orphans --volumes 2>/dev/null || true
 
 # Build and start services
 echo "Starting services and waiting to come up..."
@@ -97,13 +97,13 @@ echo "   Verifier (sally): http://127.0.0.1:9723"
 echo "            Webhook: http://127.0.0.1:9923"
 echo ""
 echo "Next steps:"
-echo "   1. Run ./task-scdripts/create-geda-aid.sh to create the GEDA AID"
-echo "   2. Run ./task-scdripts/create-qvi-aid.sh to create the QVI AID"
-echo "   3. Run ./task-scdripts/create-le-aid.sh to create the LE AID"
-echo "   4. Run ./task-scdripts/create-person-aid.sh to create the Person AID"
-echo "   5. Run ./task-scdripts/create-qvi-acdc-credential.sh to issue QVI credential"
-echo "   6. Run ./task-scdripts/create-le-acdc-credential.sh to issue LE credential"
-echo "   7. Run ./task-scdripts/create-oor-acdc-credential.sh to issue OOR credentials"
+echo "   1. Run ./task-scripts/create-geda-aid.sh to create the GEDA AID"
+echo "   2. Run ./task-scripts/create-qvi-aid.sh to create the QVI AID"
+echo "   3. Run ./task-scripts/create-le-aid.sh to create the LE AID"
+echo "   4. Run ./task-scripts/create-person-aid.sh to create the Person AID"
+echo "   5. Run ./task-scripts/create-qvi-acdc-credential.sh to issue QVI credential"
+echo "   6. Run ./task-scripts/create-le-acdc-credential.sh to issue LE credential"
+echo "   7. Run ./task-scripts/create-oor-acdc-credential.sh to issue OOR credentials"
 echo ""
 echo "To stop the environment, run ./stop.sh"
 echo "To run the whole process above run ./run-all.sh"

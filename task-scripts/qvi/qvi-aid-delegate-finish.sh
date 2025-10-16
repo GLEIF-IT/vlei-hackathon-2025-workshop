@@ -8,7 +8,7 @@ echo "Finishing delegation from GEDA to QVI AID"
 source ./task-scripts/workshop-env-vars.sh
 
 docker compose exec tsx-shell \
-  /vlei/tsx-script-runner.sh qvi-finish-delegation.ts \
+  /vlei/tsx-script-runner.sh qvi/qvi-aid-delegate-finish.ts \
     "docker" \
     "${QVI_SALT}" \
     "qvi" \
@@ -16,3 +16,5 @@ docker compose exec tsx-shell \
     "/task-data/qvi-delegate-info.json" \
     "/task-data/qvi-info.json" \
     "/task-data"
+
+echo "GEDA -> QVI AID delegation complete"
