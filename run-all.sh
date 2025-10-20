@@ -45,12 +45,12 @@
 
 # Person present OOR Credential to verifier (Sally)
 ./task-scripts/person/person-acdc-present-oor.sh
-exit 0
 
 # Person and ECR Credential
 ./task-scripts/le/le-acdc-issue-ecr-auth.sh
 ./task-scripts/qvi/qvi-acdc-admit-ecr-auth.sh
 ./task-scripts/qvi/qvi-acdc-issue-ecr.sh
 ./task-scripts/person/person-acdc-admit-ecr.sh
+exit 0
 
 
