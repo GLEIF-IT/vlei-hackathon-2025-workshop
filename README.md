@@ -1,17 +1,36 @@
 # vLEI Hackathon 2025 Workshop
 
-This workshop has three separate modules guiding the learner through each the vLEI issue hold verify flow for vLEI credentials, Chainlink's CCID integration with the vLEI, and usage of the Cardano Veridian wallet stack.
+This workshop demonstrates how to build a complete verifiable Legal Entity Identifier (vLEI) credential system using KERI (Key Event Receipt Infrastructure) and ACDC (Authentic Chained Data Container) technologies. You'll learn to create, issue, and verify organizational identity credentials that establish trust chains between legal entities and their representatives.
 
-The modules include:
+## What You'll Learn
 
-1. Module 1 - vLEI OOR Permissioned Action
-  - vLEI Issue-Hold-Verify Fundamentals
-  - Verifying a vLEI Official Organizational Role (OOR) ACDC
-2. Module 2 - vLEI-based smart contract access - CCID by Chainlink
-  - Turning a vLEI into a CCID
-  - vLEI-based CCID smart contract access
-3. Module 3 - Confidentiality with ESSR - Veridian by Cardano
-  - ESSR confidentiality agent to agent with KERI challenge response
+**Core Technologies:**
+- **KERI**: A decentralized key management system that creates self-certifying identifiers
+- **ACDC**: Verifiable credentials built on KERI that can be chained together to form trust relationships
+- **vLEI**: Legal entity credentials that prove organizational identity and roles
+
+**Key Concepts:**
+- **Trust Chains**: How credentials reference each other to build verifiable organizational hierarchies
+- **Delegation**: How organizations can delegate credential issuance authority to trusted parties
+- **Role-Based Credentials**: Different types of credentials for official roles vs. engagement contexts
+
+**Practical Skills:**
+- Creating and managing KERI identifiers
+- Issuing and presenting verifiable credentials
+- Building complete organizational identity workflows
+
+## Workshop Modules
+
+This workshop has three separate modules:
+
+1. **Module 1 - vLEI OOR Permissioned Action**
+   - vLEI Issue-Hold-Verify Fundamentals
+   - Verifying a vLEI Official Organizational Role (OOR) ACDC
+2. **(WIP) Module 2 - vLEI-based smart contract access - CCID by Chainlink**
+   - Turning a vLEI into a CCID
+   - vLEI-based CCID smart contract access
+3. **(WIP) Module 3 - Confidentiality with ESSR - Veridian by Cardano**
+   - ESSR confidentiality agent to agent with KERI challenge response
 
 ## Architecture
 
@@ -19,7 +38,33 @@ This workshop uses a simplified, single signature identifier setup with one iden
 
 The workshop demonstrates two types of vLEI credentials: Official Organizational Role (OOR) credentials and Engagement Context Role (ECR) credentials. Both follow similar trust chain patterns but serve different purposes in organizational identity verification.
 
+## How It Works
+
+**The Trust Chain:**
+1. **GEDA** (Global Legal Entity Identifier Foundation) creates a **QVI** (Qualified vLEI Issuer) as its delegate
+2. **QVI** issues a **Legal Entity** credential to a company, proving the company's identity
+3. **Legal Entity** authorizes the QVI to issue role credentials to its employees
+4. **QVI** issues **OOR** (official roles) and **ECR** (engagement roles) credentials to people
+5. **People** present their credentials to verifiers to prove their organizational roles
+
+**Why This Matters:**
+- Organizations can prove their legal identity without relying on centralized authorities
+- Role credentials are cryptographically linked to the organization's verified identity
+- The entire trust chain can be verified independently by any party
+- Credentials can be revoked or updated as organizational structures change
+
 See the `./images/vLEI-Workshop-architecture.png` diagram for a visual representation of the identifiers in green, the delegation between the GEDA and QVI, the credentials in yellow, and the KERIA, Witness, and Verifier (sally) infrastructure at the bottom of the diagram.
+
+## Quick Start
+
+If you want to see the complete vLEI workflow in action immediately:
+
+```bash
+# Start the environment and run the complete workflow
+./stop.sh && ./deploy.sh && ./run-all.sh
+```
+
+This will create all identifiers, issue all credentials, and demonstrate the complete trust chain from GEDA to Person credentials.
 
 ## Workshop Instructions
 
