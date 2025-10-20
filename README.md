@@ -17,6 +17,8 @@ The modules include:
 
 This workshop uses a simplified, single signature identifier setup with one identifier for the GEDA, QVI, LE, and Person to show an end-to-end vLEI credential issuance and presentation workflow using both KERIpy and SignifyTS. The GEDA, or GLEIF External Delegated Identifier, is a KERI identifier made with the KERIpy KLI tool. The QVI, LE, and Person AID are created with Signify TS and KERIA. All of this is built on a three witness, one KERIA, and one Sally verifier deployment. The QVI identifier is a delegated identifier that is a delegate of the GEDA delegator.
 
+The workshop demonstrates two types of vLEI credentials: Official Organizational Role (OOR) credentials and Engagement Context Role (ECR) credentials. Both follow similar trust chain patterns but serve different purposes in organizational identity verification.
+
 See the `./images/vLEI-Workshop-architecture.png` diagram for a visual representation of the identifiers in green, the delegation between the GEDA and QVI, the credentials in yellow, and the KERIA, Witness, and Verifier (sally) infrastructure at the bottom of the diagram.
 
 ## Workshop Instructions
@@ -54,27 +56,53 @@ This section explains the purpose and contents of each script. You may skip to t
 - ./sig-wallet contains the Typescript code for:
   - Setting up each of the Signify Controllers and their KERIA agents.
   - Resolving Schema OOBIs of vLEI schemas (QVI, LE, OOR Auth, ECR Auth, OOR, ECR)
-  - Creating KERI AIDs for the QVI, LE, and OOR holders.
+  - Creating KERI AIDs for the QVI, LE, and Person holders.
+  - Implementing complete credential workflows for both OOR and ECR credential types.
 - ./stop.sh shuts down the components started up by ./deploy.sh  
-- ./task-scripts/create-geda-aid.sh
+- ./task-scripts/geda/geda-aid-create.sh
   - Uses the KLI to create the GEDA AID using KERIpy rather than KERIA and SignifyTS. This mirrors what occurs in production.
   - This identifier will delegate to the QVI AID by the QVI creating a delegation request and the GEDA approving it.
-- ./task-scripts/create-qvi-aid.sh
+- ./task-scripts/qvi/qvi-aid-delegate-create.sh
   - uses the appropriate script in `./sig-wallet/src` to create the QVI AID as a delegated AID from the GEDA AID.
-- ./task-scripts/create-le-aid.sh
+- ./task-scripts/le/le-aid-create.sh
   - uses the appropriate script in `./sig-wallet/src` to create the LE AID.
-- ./task-scripts/create-person-aid.sh
+- ./task-scripts/person/person-aid-create.sh
   - uses the appropriate script in `./sig-wallet/src` to create the person AID that will receive the OOR and ECR credentials.
-- ./task-scripts/create-qvi-acdc-credential.sh  
+- ./task-scripts/geda/geda-acdc-issue-qvi.sh  
   - uses the appropriate script in `./sig-wallet/src` to issue the QVI credential from the GEDA AID to the QVI AID.
-- ./task-scripts/create-le-acdc-credential.sh
+- ./task-scripts/qvi/qvi-acdc-issue-le.sh
   - uses the appropriate script in `./sig-wallet/src` to issue the LE credential from the QVI AID to the LE AID, chaining the LE to the QVI credential.
-- ./task-scripts/create-oor-acdc-credential.sh
-  - uses the appropriate script in `./sig-wallet/src` to issue the OOR Auth credential from the LE AID to the QVI AID, chaining the OOR Auth credential to the LE credential, and then issuing the OOR credential from the QVI AID to the Person AID, chaining the OOR credential to the OOR Auth credential.
+- ./task-scripts/le/le-acdc-issue-oor-auth.sh
+  - uses the appropriate script in `./sig-wallet/src` to issue the OOR Auth credential from the LE AID to the QVI AID, chaining the OOR Auth credential to the LE credential.
+- ./task-scripts/qvi/qvi-acdc-issue-oor.sh
+  - uses the appropriate script in `./sig-wallet/src` to issue the OOR credential from the QVI AID to the Person AID, chaining the OOR credential to the OOR Auth credential.
+- ./task-scripts/le/le-acdc-issue-ecr-auth.sh
+  - uses the appropriate script in `./sig-wallet/src` to issue the ECR Auth credential from the LE AID to the QVI AID, chaining the ECR Auth credential to the LE credential.
+- ./task-scripts/qvi/qvi-acdc-issue-ecr.sh
+  - uses the appropriate script in `./sig-wallet/src` to issue the ECR credential from the QVI AID to the Person AID, chaining the ECR credential to the ECR Auth credential.
 
+
+#### Complete Workflow
+
+The workshop demonstrates a complete vLEI trust chain with both OOR and ECR credentials:
+
+1. **GEDA Setup** - Creates GEDA AID and delegates to QVI
+2. **QVI Setup** - Creates QVI AID as GEDA delegate and issues QVI credential
+3. **LE Setup** - Creates LE AID and issues LE credential with QVI edge
+4. **Person Setup** - Creates Person AID for credential receipt
+5. **OOR Credentials** - Issues OOR Auth credential from LE to QVI, then OOR credential from QVI to Person
+6. **ECR Credentials** - Issues ECR Auth credential from LE to QVI, then ECR credential from QVI to Person
+7. **Verification** - Presents all credentials to Sally verifier
 
 #### vLEI Module Instructions
 
+To run the complete workflow:
+
+```bash
+./stop.sh && ./deploy.sh && ./run-all.sh
+```
+
+This will execute all scripts in sequence, demonstrating the complete vLEI credential issuance and presentation process for both OOR and ECR credential types.
 
 
 ### Module 2 - TBD
