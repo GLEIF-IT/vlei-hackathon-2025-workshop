@@ -15,10 +15,10 @@
 ./task-scripts/qvi/qvi-acdc-admit-qvi.sh
 ./task-scripts/qvi/qvi-oobi-resolve-verifier.sh
 ./task-scripts/qvi/qvi-acdc-present-qvi.sh
-exit 0
 
 # LE and LE credential
 ./task-scripts/le/le-aid-create.sh
+exit 0
 ./task-scripts/le/le-oobi-resolve-qvi.sh
 ./task-scripts/qvi/qvi-oobi-resolve-le.sh
 

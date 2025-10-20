@@ -1,34 +1,25 @@
 #!/bin/bash
-
-# Create LE AID using SignifyTS
-# This script uses the headless SignifyTS wallet to create the LE AID
+# le-aid-create.sh - Create LE AID using SignifyTS and KERIA
+# This script creates the Legal Entity AID using the SignifyTS client
 
 set -e
 
-echo "🎯 Creating LE AID"
+echo "Creating LE AID using SignifyTS and KERIA"
 
-# Check if required info files exist
-if [ ! -f "./geda-info.json" ] || [ ! -f "./qvi-info.json" ]; then
-    echo "❌ Required info files not found. Please run create-geda-aid.sh and create-qvi-aid.sh first."
-    exit 1
-fi
+# gets LE_SALT
+source ./task-scripts/workshop-env-vars.sh
 
-# Change to headless wallet directory
-cd ./sig-wallet
+# Create LE Agent and AID
+docker compose exec tsx-shell \
+  /vlei/tsx-script-runner.sh le/le-aid-create.ts \
+    'docker' \
+    "${LE_SALT}" \
+    "/task-data"
 
-# Install dependencies if needed
-if [ ! -d "./node_modules" ]; then
-    echo "📦 Installing dependencies..."
-    npm install
-fi
+# Get the prefix
+LE_PREFIX=$(cat ./task-data/le-aid.txt | tr -d " \t\n\r")
+echo "   Prefix: ${LE_PREFIX}"
 
-# Run the LE AID creation script
-echo "🔑 Creating LE AID using SignifyTS..."
-deno run --allow-net --allow-read --allow-write ./src/create-le-aid.ts
-
-echo "✅ LE AID created successfully!"
-echo "💾 LE info saved to ./le-info.json"
-
-# Return to parent directory
-cd ..
+LE_OOBI=$(cat ./task-data/le-info.json | jq -r .oobi)
+echo "   OOBI: ${LE_OOBI}"
 
