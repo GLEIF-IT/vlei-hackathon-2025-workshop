@@ -23,8 +23,8 @@
 
 # LE credentials
 ./task-scripts/qvi/qvi-registry-create.sh
+./task-scripts/qvi/qvi-acdc-issue-le.sh
 exit 0
-./task-scritpts/qvi/qvi-acdc-issue-le.sh
 ./task-scripts/le/le-acdc-admit-le.sh
 ./task-scripts/le/le-acdc-present-le.sh
 
