@@ -1,8 +1,5 @@
 import fs from 'fs';
 import {createAid, getOrCreateClient} from "../../client/identifiers.js";
-import {EnvType} from "../../client/resolve-env.js";
-import {waitOperation} from "../../client/operations.js";
-import {SignifyClient} from "signify-ts";
 
 const args = process.argv.slice(2);
 const env = args[0] as 'docker' | 'testnet';

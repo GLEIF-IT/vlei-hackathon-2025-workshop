@@ -14,4 +14,9 @@ export PERSON_SALT='0ADckowyGuNwtJUPLeRqZvTp'
 export GEDA_REGISTRY='geda-qvi-registry'
 
 export QVI_SCHEMA_SAID='EBfdlu8R27Fbx-ehrqwImnK-8Cm79sqbAQ4MmvEAYqao'
+export GEDA_AID_NAME='geda'
+export QVI_AID_NAME='qvi'
+
+export VERIFIER_AID='EMrjKv0T43sslqFfhlEHC9v3t9UoxHWrGznQ1EveRXUO'
+export VERIFIER_OOBI='http://verifier:9723/oobi'
 

@@ -33,45 +33,66 @@ echo "   WEBHOOK_URL: ${WEBHOOK_URL}"
 
 export DEBUG_KLI=true
 
-# Set up keystore and AID for Sally verifier
-# This manually calls init and incept in order to have a deterministic AID.
+function start_sally() {
+  # Start Sally in direct mode
+  sally server start \
+    --direct \
+    --name "${SALLY_KS_NAME}" \
+    --alias "${SALLY_KS_NAME}" \
+    --passcode "${SALLY_PASSCODE}" \
+    --http "${SALLY_PORT}" \
+    --config-dir /sally/conf \
+    --config-file verifier.json \
+    --web-hook "${WEBHOOK_URL}" \
+    --auth "${GEDA_PRE}" \
+    --loglevel INFO
+}
 
-# Create Habery / keystore
-kli init \
+function init_sally_aid() {
+  # Create Habery / keystore
+  kli init \
     --name "${SALLY_KS_NAME}" \
     --salt "${SALLY_SALT}" \
     --passcode "${SALLY_PASSCODE}" \
     --config-dir /sally/conf \
     --config-file "${SALLY_KS_NAME}.json"
 
-# Create sally identifier
-kli incept \
-    --name "${SALLY_KS_NAME}" \
-    --alias "${SALLY_KS_NAME}" \
-    --passcode "${SALLY_PASSCODE}" \
-    --config /sally/conf \
-    --file "/sally/conf/incept-no-wits.json"
+  # Create sally identifier
+  kli incept \
+      --name "${SALLY_KS_NAME}" \
+      --alias "${SALLY_KS_NAME}" \
+      --passcode "${SALLY_PASSCODE}" \
+      --config /sally/conf \
+      --file "/sally/conf/incept-no-wits.json"
+}
 
-ACTUAL_PASSCODE=$(kli aid --name "${SALLY_KS_NAME}" --alias "${SALLY_KS_NAME}" --passcode "${SALLY_PASSCODE}")
+# make sure parent directory exists so dir check works
+mkdir -p /usr/local/var/keri/ks
 
-if [[ "${ACTUAL_PASSCODE}" != "${EXPECTED_AID}" ]]; then
-  echo "Sally AID prefix mismatch!"
-  echo "   Expected: ${EXPECTED_AID}"
-  echo "   Actual:   ${ACTUAL_PASSCODE}"
-  exit 1
+echo "Checking for existing Sally AID..."
+# check if the /usr/local/var/keri/ks/sally directory exists (has already been initialized
+if [[ -d "/usr/local/var/keri/ks/${SALLY_KS_NAME}" ]]; then
+  echo "Sally keystore directory exists."
+
+  EXISTING_AID=$(kli aid --name "${SALLY_KS_NAME}" --alias "${SALLY_KS_NAME}" --passcode "${SALLY_PASSCODE}")
+  echo "Existing Sally AID: ${EXISTING_AID}"
+  echo "Sally AID already exists: ${EXISTING_AID}"
+  if [[ "${EXISTING_AID}" == "${EXPECTED_AID}" ]]; then
+    echo "Sally AID prefix matches expected value: ${EXPECTED_AID}"
+    echo "Existing Sally AID matches expected value. No need to recreate."
+    start_sally
+  else
+    echo "Sally AID prefix mismatch!"
+    echo "   Expected: ${EXPECTED_AID}"
+    echo "   Actual:   ${ACTUAL_AID}"
+    echo "Error: Existing Sally AID does not match expected value. Exiting"
+    exit 1
+  fi
 else
-  echo "Sally AID prefix matches expected value: ${EXPECTED_AID}"
+  echo "Sally keystore does not exist. Initializing..."
+  # Set up keystore and AID for Sally verifier
+  # This manually calls init and incept in order to have a deterministic AID.
+  init_sally_aid
+  start_sally
 fi
 
-# Start Sally in direct mode
-sally server start \
-  --direct \
-  --name "${SALLY_KS_NAME}" \
-  --alias "${SALLY_KS_NAME}" \
-  --passcode "${SALLY_PASSCODE}" \
-  --http "${SALLY_PORT}" \
-  --config-dir /sally/conf \
-  --config-file verifier.json \
-  --web-hook "${WEBHOOK_URL}" \
-  --auth "${GEDA_PRE}" \
-  --loglevel INFO

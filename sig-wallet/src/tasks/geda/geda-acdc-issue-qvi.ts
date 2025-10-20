@@ -1,6 +1,6 @@
 import fs from "fs";
 import {getOrCreateClient} from "../../client/identifiers.js";
-import {grantCredential, issueCredential} from "../../client/credentials.js";
+import {ipexGrantCredential, issueCredential} from "../../client/credentials.js";
 import {resolveOobi} from "../../client/oobis.js";
 
 // process arguments
@@ -39,8 +39,7 @@ const issRes: any = await issueCredential(
 );
 // console.log(issRes);
 console.log("IPEX Granting credential to issuee:", issRes.issuee);
-await fs.promises.writeFile(qviCredInfoPath, JSON.stringify(issRes));
-const grantRes: any = await grantCredential(
+const grantRes: any = await ipexGrantCredential(
     issClient,
     issRes.issuee,
     issAidName,
@@ -48,5 +47,8 @@ const grantRes: any = await grantCredential(
     issRes.anc,
     issRes.iss
 );
+console.log("Grant result:", grantRes);
+issRes.grantSAID = grantRes.response.said;
+await fs.promises.writeFile(qviCredInfoPath, JSON.stringify(issRes));
 console.log(grantRes);
 console.log("QVI credential created and granted");

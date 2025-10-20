@@ -1,4 +1,10 @@
-import {CredentialData, CredentialSubject, Operation, SignifyClient} from "signify-ts";
+import {
+    CredentialData,
+    CredentialResult,
+    CredentialSubject,
+    Operation,
+    SignifyClient
+} from "signify-ts";
 import {createTimestamp, DEFAULT_TIMEOUT_MS} from "../utils.js";
 import {waitOperation} from "./operations.js";
 
@@ -46,6 +52,48 @@ export async function createRegistry(
         console.error(`Failed to create credential registry "${registryName}":`, error);
         throw error;
     }
+}
+
+/**
+ * Returns a credential that has been received through an IPEX Admit by the client.
+ * @param client SignifyClient for the recipient or for multisig the client of one of the recipients
+ * @param credId SAID of the credential to retrieve
+ * @returns the credential body
+ */
+export async function getReceivedCredential(
+    client: SignifyClient,
+    credId: string
+): Promise<CredentialResult> {
+    const credentialList = await client.credentials().list({
+        filter: {
+            '-d': credId,
+        },
+    });
+    let credential: any;
+    if (credentialList.length > 0) {
+        credential = credentialList[0];
+    }
+    return credential;
+}
+
+/**
+ * Searches for ACDC credentials by schema SAID and issuer prefix, returning any matches,
+ * @param client
+ * @param schemaSAID
+ * @param issuerPrefix
+ */
+export async function getReceivedCredBySchemaAndIssuer(
+    client: SignifyClient,
+    schemaSAID: string,
+    issuerPrefix: string
+): Promise<CredentialResult[]> {
+    const credentialList = await client.credentials().list({
+        filter: {
+            '-s': schemaSAID,
+            '-i': issuerPrefix
+        },
+    });
+    return credentialList;
 }
 
 /**
@@ -104,7 +152,6 @@ export async function issueCredential(
     const credentialSaid = credentialSad?.ced?.d; // The SAID of the credential
 
     const cred = await issClient.credentials().get(credentialSaid);
-    console.log("found credential is:", cred)
     return {
         said: cred.sad.d,
         issuer: cred.sad.i,
@@ -116,7 +163,7 @@ export async function issueCredential(
     }
 }
 
-export async function grantCredential(
+export async function ipexGrantCredential(
     client: SignifyClient,
     issueeAid: string,
     issName: string,
@@ -141,4 +188,50 @@ export async function grantCredential(
 
     console.log('Grant message sent');
     return op
+}
+
+/**
+ * Submits an IPEX admit (accepts a grant).
+ * @param {SignifyClient} client - The SignifyClient instance of the holder.
+ * @param {string} senderAidAlias - The alias of the AID admitting the grant.
+ * @param {string} recipientAidPrefix - The AID prefix of the original grantor.
+ * @param {string} grantSaid - The SAID of the grant being admitted.
+ * @param {string} [message=''] - Optional message for the admit.
+ * @returns {Promise<{ operation: Operation<any> }>} The operation details.
+ */
+export async function ipexAdmitGrant(
+    client: SignifyClient,
+    senderAidAlias: string,
+    recipientAidPrefix: string,
+    grantSaid: string,
+    message: string = ''
+): Promise<{ operation: Operation<any> }> {
+    console.log(`AID "${senderAidAlias}" admitting IPEX grant "${grantSaid}" from AID "${recipientAidPrefix}"...`);
+    try {
+        const [admit, sigs, aend] = await client.ipex().admit({
+            senderName: senderAidAlias,
+            message: message,
+            grantSaid: grantSaid,
+            recipient: recipientAidPrefix,
+            datetime: createTimestamp(),
+        });
+
+        const admitOperationDetails = await client
+            .ipex()
+            .submitAdmit(senderAidAlias, admit, sigs, aend, [recipientAidPrefix]);
+
+        const completedOperation = await client
+            .operations()
+            .wait(admitOperationDetails, {signal: AbortSignal.timeout(DEFAULT_TIMEOUT_MS)});
+
+        if (completedOperation.error) {
+            throw new Error(`IPEX admit submission failed: ${JSON.stringify(completedOperation.error)}`);
+        }
+        console.log(`Successfully submitted IPEX admit for grant "${grantSaid}".`);
+        await client.operations().delete(completedOperation.name);
+        return { operation: completedOperation };
+    } catch (error) {
+        console.error('Failed to submit IPEX admit:', error);
+        throw error;
+    }
 }

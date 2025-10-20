@@ -121,7 +121,7 @@ services:
       SALLY_PASSCODE: 4TBjjhmKu9oeDp49J7Xdy
       SALLY_PORT: 9723
       WEBHOOK_URL: http://resource:9923
-      GEDA_PRE: "EAQRpV-M8AAN-_OkHmUb8-ulTEyz9foI_BM1ckhrDetr"
+      GEDA_PRE: ${GEDA_PRE}
     volumes:
       - ./config/verifier-sally/verifier.json:/sally/conf/keri/cf/verifier.json
       - ./config/verifier-sally/incept-no-wits.json:/sally/conf/incept-no-wits.json
