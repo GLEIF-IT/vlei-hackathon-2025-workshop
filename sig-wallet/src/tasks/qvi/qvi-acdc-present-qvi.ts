@@ -1,7 +1,7 @@
 import {CredentialResult, Serder, SignifyClient} from "signify-ts";
 import {getOrCreateClient} from "../../client/identifiers.js";
 import {getReceivedCredential} from "../../client/credentials.js";
-import {createTimestamp} from "../../utils.js";
+import {createTimestamp} from "../../time.js";
 import {waitOperation} from "../../client/operations.js";
 
 // process arguments

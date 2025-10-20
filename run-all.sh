@@ -19,6 +19,9 @@ exit 0
 
 # LE and LE credential
 ./task-scripts/le/le-aid-create.sh
+./task-scripts/le/le-oobi-resolve-qvi.sh
+./task-scripts/qvi/qvi-oobi-resolve-le.sh
+
 ./task-scripts/qvi/qvi-registry-create.sh
 ./task-scritpts/qvi/qvi-acdc-issue-le.sh
 ./task-scripts/le/le-acdc-admit-le.sh
@@ -26,6 +29,10 @@ exit 0
 
 # Person and OOR Credential
 ./task-scripts/person/person-aid-create.sh
+./task-scripts/person/person-oobi-resolve-le.sh
+./task-scripts/le/le-oobi-resolve-person.sh
+./task-scripts/qvi/qvi-oobi-resolve-person.sh
+
 ./task-scripts/le/le-registry-create.sh
 ./task-scripts/le/le-acdc-issue-oor-auth.sh
 ./task-scripts/qvi/qvi-acdc-admit-oor-auth.sh

@@ -5,7 +5,7 @@ import {
     Operation,
     SignifyClient
 } from "signify-ts";
-import {createTimestamp, DEFAULT_TIMEOUT_MS} from "../utils.js";
+import {createTimestamp, DEFAULT_TIMEOUT_MS} from "../time.js";
 import {waitOperation} from "./operations.js";
 
 /**
@@ -55,6 +55,27 @@ export async function createRegistry(
 }
 
 /**
+* Finds matching credentials based on a filter.
+* @param {SignifyClient} client - The SignifyClient instance of the holder.
+* @param {any} filter - The filter object to apply (e.g., { '-s': schemaSaid, '-a-attributeName': value }).
+* @returns {Promise<any[]>} An array of matching credentials.
+*/
+export async function findMatchingCredentials(
+  client: SignifyClient,
+  filter: any
+): Promise<CredentialResult[]> {
+  console.log('Finding matching credentials with filter:', filter);
+  try {
+      const matchingCredentials = await client.credentials().list({ filter });
+      console.log(`Found ${matchingCredentials.length} matching credentials.`);
+      return matchingCredentials;
+  } catch (error) {
+      console.error('Failed to find matching credentials:', error);
+      throw error;
+  }
+}
+
+/**
  * Returns a credential that has been received through an IPEX Admit by the client.
  * @param client SignifyClient for the recipient or for multisig the client of one of the recipients
  * @param credId SAID of the credential to retrieve
@@ -64,11 +85,9 @@ export async function getReceivedCredential(
     client: SignifyClient,
     credId: string
 ): Promise<CredentialResult> {
-    const credentialList = await client.credentials().list({
-        filter: {
+    const credentialList = await findMatchingCredentials(client, {
             '-d': credId,
-        },
-    });
+    })
     let credential: any;
     if (credentialList.length > 0) {
         credential = credentialList[0];
@@ -87,13 +106,10 @@ export async function getReceivedCredBySchemaAndIssuer(
     schemaSAID: string,
     issuerPrefix: string
 ): Promise<CredentialResult[]> {
-    const credentialList = await client.credentials().list({
-        filter: {
-            '-s': schemaSAID,
-            '-i': issuerPrefix
-        },
+    return await findMatchingCredentials(client, {
+        '-s': schemaSAID,
+        '-i': issuerPrefix
     });
-    return credentialList;
 }
 
 /**
