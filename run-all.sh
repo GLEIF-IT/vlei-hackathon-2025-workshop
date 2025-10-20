@@ -24,9 +24,10 @@
 # LE credentials
 ./task-scripts/qvi/qvi-registry-create.sh
 ./task-scripts/qvi/qvi-acdc-issue-le.sh
-exit 0
 ./task-scripts/le/le-acdc-admit-le.sh
+./task-scripts/le/le-oobi-resolve-verifier.sh
 ./task-scripts/le/le-acdc-present-le.sh
+exit 0
 
 # Person identifier setup
 ./task-scripts/person/person-aid-create.sh
