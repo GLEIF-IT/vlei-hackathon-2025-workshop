@@ -14,6 +14,9 @@ export PERSON_SALT='0ADckowyGuNwtJUPLeRqZvTp'
 export GEDA_REGISTRY='geda-qvi-registry'
 
 export QVI_SCHEMA_SAID='EBfdlu8R27Fbx-ehrqwImnK-8Cm79sqbAQ4MmvEAYqao'
+export LE_SCHEMA_SAID='ENPXp1vQzRF6JwIuS-mp2U8Uf1MoADoP_GqQ62VsDZWY'
+export OOR_AUTH_SCHEMA_SAID='EKA57bKBKxr_kN7iN5i7lMUxpMG-s19dRcmov1iDxz-E'
+export OOR_SCHEMA_SAID='EBNaNu-M9P5cgrnfl2Fvymy4E_jvxxyjb70PRtiANlJy'
 export GEDA_AID_NAME='geda'
 export QVI_AID_NAME='qvi'
 

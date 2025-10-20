@@ -11,5 +11,5 @@ const qviClient = await getOrCreateClient(qviPasscode, env);
 
 const op: any = await ipexAdmitGrant(qviClient, 'qvi', gedaPrefix, grantSAID)
 const creds = await qviClient.credentials().list();
-console.log("QVI IPEX Admit:", op.response.said);
+console.log("QVI IPEX Admit:", op);
 console.log("QVI credential admitted:", creds[0].sad.d);

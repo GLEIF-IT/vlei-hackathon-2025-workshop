@@ -1,34 +1,54 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# le-acdc-issue-oor-auth.sh - Issue OOR Auth Credential from LE to QVI AID
 
-# Create LE ACDC Credential
-# This script issues the LE credential from the QVI AID to the LE AID, chaining the LE to the QVI credential
+# Create OOR Auth ACDC Credential
+# This script issues the OOR Auth credential from the LE AID to the QVI AID
 
 set -e
 
-echo "🎯 Creating LE ACDC Credential"
+echo "Creating OOR Auth ACDC Credential"
+source ./task-scripts/workshop-env-vars.sh
 
 # Check if required info files exist
-if [ ! -f "./qvi-info.json" ] || [ ! -f "./le-info.json" ] || [ ! -f "./qvi-credential-info.json" ]; then
-    echo "❌ Required info files not found. Please run create-qvi-aid.sh, create-le-aid.sh, and create-qvi-acdc-credential.sh first."
+if [ ! -f "./task-data/person-info.json" ]; then
+    echo "Required Person AID info file not found. Please run person-aid-create.sh first."
+    exit 1
+fi
+if [ ! -f "./task-data/le-registry-info.json" ]; then
+    echo "Required LE registry info file not found. Please run le-registry-create.sh first."
+    exit 1
+fi
+if [ ! -f "./task-data/le-credential-info.json" ]; then
+    echo "Required LE credential info file not found. Please run qvi-acdc-issue-le.sh first."
     exit 1
 fi
 
-# Change to headless wallet directory
-cd ./sig-wallet
+# get QVI AID from qvi-info.json
+QVI_AID=$(jq -r '.aid' ./task-data/qvi-info.json)
 
-# Install dependencies if needed
-if [ ! -d "./node_modules" ]; then
-    echo "📦 Installing dependencies..."
-    npm install
-fi
+# get Person AID from person-info.json
+PERSON_AID=$(jq -r '.aid' ./task-data/person-info.json)
 
-# Run the LE credential creation script
-echo "🔑 Creating LE credential using SignifyTS..."
-deno run --allow-net --allow-read --allow-write ./src/create-le-credential.ts
+# get LE Credential SAID from le-credential-info.json for the edge
+LE_CRED_SAID=$(jq -r '.said' ./task-data/le-credential-info.json)
 
-echo "✅ LE credential created successfully!"
-echo "💾 LE credential info saved to ./le-credential-info.json"
+# Sample person data for OOR Auth credential
+PERSON_NAME="John Smith"
+PERSON_OOR="Head of Standards"
 
-# Return to parent directory
-cd ..
+# Issue the OOR Auth credential
+echo "Issuing OOR Auth credential to ${QVI_AID} for person ${PERSON_NAME}"
+docker compose exec tsx-shell \
+  /vlei/tsx-script-runner.sh le/le-acdc-issue-oor-auth.ts \
+    'docker' \
+    'le' \
+    "${LE_SALT}" \
+    "le-oor-registry" \
+    "${OOR_AUTH_SCHEMA_SAID}" \
+    "${QVI_AID}" \
+    "${PERSON_AID}" \
+    "${PERSON_NAME}" \
+    "${PERSON_OOR}" \
+    "${LE_CRED_SAID}" \
+    "/task-data/oor-auth-credential-info.json"
 

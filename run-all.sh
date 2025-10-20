@@ -27,15 +27,14 @@
 ./task-scripts/le/le-acdc-admit-le.sh
 ./task-scripts/le/le-oobi-resolve-verifier.sh
 ./task-scripts/le/le-acdc-present-le.sh
-exit 0
 
 # Person identifier setup
 ./task-scripts/person/person-aid-create.sh
 ./task-scripts/person/person-oobi-resolve-le.sh
 ./task-scripts/le/le-oobi-resolve-person.sh
 ./task-scripts/qvi/qvi-oobi-resolve-person.sh
+./task-scripts/person/person-oobi-resolve-qvi.sh
 ./task-scripts/person/person-oobi-resolve-verifier.sh
-exit 0
 
 # Person OOR Credential setup
 ./task-scripts/le/le-registry-create.sh
@@ -44,11 +43,14 @@ exit 0
 ./task-scripts/qvi/qvi-acdc-issue-oor.sh
 ./task-scripts/person/person-acdc-admit-oor.sh
 
+# Person present OOR Credential to verifier (Sally)
+./task-scripts/person/person-acdc-present-oor.sh
+exit 0
+
 # Person and ECR Credential
 ./task-scripts/le/le-acdc-issue-ecr-auth.sh
 ./task-scripts/qvi/qvi-acdc-admit-ecr-auth.sh
 ./task-scripts/qvi/qvi-acdc-issue-ecr.sh
 ./task-scripts/person/person-acdc-admit-ecr.sh
 
-# Person present OOR Credential to verifier (Sally)
-./task-scripts/person/person-acdc-present-oor.sh
+
