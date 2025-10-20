@@ -16,23 +16,25 @@
 ./task-scripts/qvi/qvi-oobi-resolve-verifier.sh
 ./task-scripts/qvi/qvi-acdc-present-qvi.sh
 
-# LE and LE credential
+# LE identifier setup
 ./task-scripts/le/le-aid-create.sh
 ./task-scripts/le/le-oobi-resolve-qvi.sh
 ./task-scripts/qvi/qvi-oobi-resolve-le.sh
-exit 0
 
+# LE credentials
 ./task-scripts/qvi/qvi-registry-create.sh
+exit 0
 ./task-scritpts/qvi/qvi-acdc-issue-le.sh
 ./task-scripts/le/le-acdc-admit-le.sh
 ./task-scripts/le/le-acdc-present-le.sh
 
-# Person and OOR Credential
+# Person identifier setup
 ./task-scripts/person/person-aid-create.sh
 ./task-scripts/person/person-oobi-resolve-le.sh
 ./task-scripts/le/le-oobi-resolve-person.sh
 ./task-scripts/qvi/qvi-oobi-resolve-person.sh
 
+# Person OOR Credential setup
 ./task-scripts/le/le-registry-create.sh
 ./task-scripts/le/le-acdc-issue-oor-auth.sh
 ./task-scripts/qvi/qvi-acdc-admit-oor-auth.sh
