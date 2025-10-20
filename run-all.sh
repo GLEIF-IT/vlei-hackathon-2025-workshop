@@ -34,6 +34,8 @@ exit 0
 ./task-scripts/person/person-oobi-resolve-le.sh
 ./task-scripts/le/le-oobi-resolve-person.sh
 ./task-scripts/qvi/qvi-oobi-resolve-person.sh
+./task-scripts/person/person-oobi-resolve-verifier.sh
+exit 0
 
 # Person OOR Credential setup
 ./task-scripts/le/le-registry-create.sh

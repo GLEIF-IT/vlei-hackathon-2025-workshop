@@ -1,34 +1,25 @@
 #!/bin/bash
-
-# Create Person AID using SignifyTS
-# This script uses the headless SignifyTS wallet to create the Person AID
+# person-aid-create.sh - Create Person AID using SignifyTS and KERIA
+# This script creates the Person AID using the SignifyTS client
 
 set -e
 
-echo "🎯 Creating Person AID"
+echo "Creating Person AID using SignifyTS and KERIA"
 
-# Check if required info files exist
-if [ ! -f "./geda-info.json" ] || [ ! -f "./qvi-info.json" ] || [ ! -f "./le-info.json" ]; then
-    echo "❌ Required info files not found. Please run create-geda-aid.sh, create-qvi-aid.sh, and create-le-aid.sh first."
-    exit 1
-fi
+# gets PERSON_SALT
+source ./task-scripts/workshop-env-vars.sh
 
-# Change to headless wallet directory
-cd ./sig-wallet
+# Create Person Agent and AID
+docker compose exec tsx-shell \
+  /vlei/tsx-script-runner.sh person/person-aid-create.ts \
+    'docker' \
+    "${PERSON_SALT}" \
+    "/task-data"
 
-# Install dependencies if needed
-if [ ! -d "./node_modules" ]; then
-    echo "📦 Installing dependencies..."
-    npm install
-fi
+# Get the prefix
+PERSON_PREFIX=$(cat ./task-data/person-aid.txt | tr -d " \t\n\r")
+echo "   Prefix: ${PERSON_PREFIX}"
 
-# Run the Person AID creation script
-echo "🔑 Creating Person AID using SignifyTS..."
-deno run --allow-net --allow-read --allow-write ./src/create-person-aid.ts
-
-echo "✅ Person AID created successfully!"
-echo "💾 Person info saved to ./person-info.json"
-
-# Return to parent directory
-cd ..
+PERSON_OOBI=$(cat ./task-data/person-info.json | jq -r .oobi)
+echo "   OOBI: ${PERSON_OOBI}"
 

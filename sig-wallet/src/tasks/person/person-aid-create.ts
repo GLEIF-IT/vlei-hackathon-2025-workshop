@@ -1,9 +1,15 @@
-#!/usr/bin/env -S deno run --allow-net --allow-read --allow-write
+import fs from 'fs';
+import {createAid, getOrCreateClient} from "../../client/identifiers.js";
 
-import { randomPasscode } from 'signify-ts';
+const args = process.argv.slice(2);
+const env = args[0] as 'docker' | 'testnet';
+const personPasscode = args[1];
+const dataDir = args[2];
 
-
-async function createPerson() {
-
-}
+// get client and create Person AID
+const client = await getOrCreateClient(personPasscode, env);
+const personInfo: any = await createAid(client, 'person');
+await fs.promises.writeFile(`${dataDir}/person-aid.txt`, personInfo.aid);
+await fs.promises.writeFile(`${dataDir}/person-info.json`, JSON.stringify(personInfo));
+console.log(`Person info written to ${dataDir}/person-*`)
 
