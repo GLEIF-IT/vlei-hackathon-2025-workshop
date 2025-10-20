@@ -19,8 +19,8 @@
 # LE and LE credential
 ./task-scripts/le/le-aid-create.sh
 ./task-scripts/le/le-oobi-resolve-qvi.sh
-exit 0
 ./task-scripts/qvi/qvi-oobi-resolve-le.sh
+exit 0
 
 ./task-scripts/qvi/qvi-registry-create.sh
 ./task-scritpts/qvi/qvi-acdc-issue-le.sh
