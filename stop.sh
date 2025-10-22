@@ -7,8 +7,8 @@ set -e
 echo "Stopping vLEI Hackathon 2025 Workshop Environment"
 
 # clean up task-data directory
-rm -v task-data/*.json
-rm -v task-data/*.txt
+rm -fv task-data/*.json
+rm -fv task-data/*.txt
 
 # Check if docker-compose is available
 if ! command -v docker compose &> /dev/null; then
