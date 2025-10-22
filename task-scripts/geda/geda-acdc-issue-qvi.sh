@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # geda-issue-qvi.sh - Issue QVI Credential from GEDA to QVI AID
 
 # Create QVI ACDC Credential

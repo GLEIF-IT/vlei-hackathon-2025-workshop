@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # tsx-script-runner.sh - Receives a script in /tsx/sig-wallet/src and runs it with tsx
 #   after sourcing the environment variables
 

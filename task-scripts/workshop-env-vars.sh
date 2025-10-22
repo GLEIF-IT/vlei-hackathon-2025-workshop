@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # workshop-env-vars.sh - Environment variables for vLEI workshop module
 
 # Witness AID Prefixes

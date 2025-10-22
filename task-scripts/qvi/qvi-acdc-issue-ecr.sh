@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # qvi-acdc-issue-ecr.sh - Issue ECR Credential from QVI to Person AID
 
 # Create ECR ACDC Credential

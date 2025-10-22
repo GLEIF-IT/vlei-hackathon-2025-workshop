@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # le-oobi-resolve-verifier.sh - Resolve the verifier (Sally) OOBI for LE AID
 
 set -e

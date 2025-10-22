@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # le-registry-create.sh - Create a registry in LE AID
 
 set -e

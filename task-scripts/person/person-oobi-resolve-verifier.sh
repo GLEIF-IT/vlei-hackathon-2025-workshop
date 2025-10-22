@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # person-oobi-resolve-verifier.sh - Resolve the verifier (Sally) OOBI for Person AID
 
 set -e

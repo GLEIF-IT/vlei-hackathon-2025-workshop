@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # person-acdc-admit-ecr.sh - Admit the ECR ACDC Credential
 
 set -e

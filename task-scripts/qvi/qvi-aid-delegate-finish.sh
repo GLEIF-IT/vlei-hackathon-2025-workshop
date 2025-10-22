@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # qvi-finish-delegation.sh - Finish delegation from GEDA to QVI AID
 
 set -e

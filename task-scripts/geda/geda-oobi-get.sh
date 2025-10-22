@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # geda-get-oobi.sh - Get the OOBI for the GEDA AID
 
 set -e

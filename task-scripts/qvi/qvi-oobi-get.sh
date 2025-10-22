@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # qvi-get-oobi.sh - Get the OOBI for the QVI AID
 
 set -e

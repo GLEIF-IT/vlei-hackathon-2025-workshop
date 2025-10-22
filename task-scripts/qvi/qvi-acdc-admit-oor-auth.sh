@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # qvi-acdc-admit-oor-auth.sh - Admit the OOR Auth ACDC Credential
 
 set -e

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # person-oobi-resolve-qvi.sh - Resolve QVI OOBI for Person AID
 
 set -e

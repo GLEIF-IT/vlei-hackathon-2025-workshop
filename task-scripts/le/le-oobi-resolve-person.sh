@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # le-oobi-resolve-person.sh - Resolve Person OOBI for LE AID
 
 set -e

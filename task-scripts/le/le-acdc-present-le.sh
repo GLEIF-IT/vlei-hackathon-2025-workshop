@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # le-acdc-present-le.sh - Present the LE ACDC to the verifier (Sally)
 
 set -e

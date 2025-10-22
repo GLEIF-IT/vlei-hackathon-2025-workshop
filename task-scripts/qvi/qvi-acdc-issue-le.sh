@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # qvi-acdc-issue-le.sh - Issue LE Credential from QVI to LE AID
 
 # Create LE ACDC Credential

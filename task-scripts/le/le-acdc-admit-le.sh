@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # le-acdc-admit-le.sh - Admit the LE ACDC Credential
 
 set -e

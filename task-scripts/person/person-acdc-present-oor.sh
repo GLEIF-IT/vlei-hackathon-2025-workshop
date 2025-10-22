@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # person-acdc-present-oor.sh - Present the OOR ACDC to the verifier (Sally)
 
 set -e

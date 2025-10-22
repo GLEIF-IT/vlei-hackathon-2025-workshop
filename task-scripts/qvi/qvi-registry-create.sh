@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # qvi-registry-create.sh - Create a registry in QVI AID
 
 set -e

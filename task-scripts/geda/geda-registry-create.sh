@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # geda-registry-create.sh - Create a registry in GEDA AID
 
 set -e

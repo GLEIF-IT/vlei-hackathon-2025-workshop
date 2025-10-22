@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # qvi-oobi-resolve-verifier.sh - Resolve the verifier (Sally) OOBI for QVI AID
 
 set -e

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # qvi-acdc-admit-ecr-auth.sh - Admit the ECR Auth ACDC Credential
 
 set -e

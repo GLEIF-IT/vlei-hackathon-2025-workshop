@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # qvi-acdc-issue-oor.sh - Issue OOR Credential from QVI to Person AID
 
 # Create OOR ACDC Credential

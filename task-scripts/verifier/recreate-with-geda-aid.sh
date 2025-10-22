@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # recreate-with-geda-aid.sh - Recreate the Verifier container to have the correct GEDA AID
 #   This GEDA AID is used to validate any presented AID credentials.
 

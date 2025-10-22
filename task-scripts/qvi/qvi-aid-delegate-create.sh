@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+
 # create-qvi-aid.sh - Create QVI AID as delegated identifier from GEDA
 # This script uses the headless SignifyTS wallet via tsx to create the QVI AID
 

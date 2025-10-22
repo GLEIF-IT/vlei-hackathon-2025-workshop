@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # le-acdc-issue-oor-auth.sh - Issue OOR Auth Credential from LE to QVI AID
 
 # Create OOR Auth ACDC Credential

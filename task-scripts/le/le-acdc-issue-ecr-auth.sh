@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # le-acdc-issue-ecr-auth.sh - Issue ECR Auth Credential from LE to QVI AID
 
 # Create ECR Auth ACDC Credential

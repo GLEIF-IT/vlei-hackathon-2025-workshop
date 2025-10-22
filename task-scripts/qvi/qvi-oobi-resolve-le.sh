@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # qvi-oobi-resolve-le.sh - Resolve the LE OOBI for QVI AID
 
 set -e

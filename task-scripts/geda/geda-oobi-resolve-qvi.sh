@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # geda-oobi-resolve-qvi.sh - Refresh keystate for GEDA AID by resolving QVI AID to get end roles
 
 set -e

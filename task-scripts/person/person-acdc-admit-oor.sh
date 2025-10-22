@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # person-acdc-admit-oor.sh - Admit the OOR ACDC Credential
 
 set -e

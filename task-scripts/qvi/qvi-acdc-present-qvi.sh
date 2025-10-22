@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # qvi-acdc-present-qvi.sh - Present the QVI ACDC to the verifier (Sally)
 
 set -e

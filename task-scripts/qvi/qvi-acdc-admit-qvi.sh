@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # qvi-acdc-admit-qvi.sh - Admit the QVI ACDC Credential
 
 set -e
