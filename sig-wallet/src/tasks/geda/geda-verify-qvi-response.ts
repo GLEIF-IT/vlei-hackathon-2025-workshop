@@ -29,3 +29,5 @@ const exn = new Serder(verifyResponse.exn);
 
 await gedaClient.challenges().responded(qviAid, exn.sad.d);
 console.log('GEDA marked QVI challenge response as accepted');
+
+

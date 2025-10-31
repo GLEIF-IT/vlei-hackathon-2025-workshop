@@ -26,3 +26,5 @@ docker compose exec tsx-shell \
     "/task-data/qvi-challenge-info.json"
 
 echo "Challenge generated successfully"
+
+

@@ -3,6 +3,7 @@
 
 # Witness AID Prefixes
 export WAN_WIT_PRE='BBilc4-L3tFUnfM_wJr4S4OJanAv_VmF_dJNN6vkf2Ha'
+export GEDA_PRE='invalid-aid-will-be-replaced'
 
 # GEDA AID details
 # Fixed configuration for consistent root of trust

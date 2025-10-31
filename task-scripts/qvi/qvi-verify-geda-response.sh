@@ -33,3 +33,5 @@ docker compose exec tsx-shell \
     "${CHALLENGE_WORDS}"
 
 echo "QVI challenge verification completed"
+
+

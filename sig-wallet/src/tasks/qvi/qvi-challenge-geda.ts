@@ -30,3 +30,5 @@ await import('fs').then(fs =>
 
 console.log(`Challenge info written to ${challengeInfoPath}`);
 console.log(`Challenge words: ${challengeResult.words.join(' ')}`);
+
+

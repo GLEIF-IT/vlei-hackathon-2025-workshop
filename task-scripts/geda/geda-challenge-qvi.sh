@@ -26,3 +26,4 @@ docker compose exec tsx-shell \
     "/task-data/geda-challenge-info.json"
 
 echo "Challenge generated successfully"
+

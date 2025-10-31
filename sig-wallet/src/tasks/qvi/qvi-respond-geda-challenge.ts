@@ -15,3 +15,4 @@ console.log(`QVI responding to GEDA challenge: ${gedaAid}`);
 // Respond to the challenge with the provided words
 await qviClient.challenges().respond('qvi', gedaAid, challengeWords.split(' '));
 console.log('QVI responded to GEDA challenge with signed words');
+

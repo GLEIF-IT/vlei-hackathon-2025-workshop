@@ -1,7 +1,7 @@
 #!/bin/bash
 # qvi-respond-geda-challenge.sh - QVI responds to GEDA challenge
 
-set -e
+set -e 
 
 echo "QVI responding to GEDA challenge"
 source ./task-scripts/workshop-env-vars.sh
@@ -18,7 +18,6 @@ fi
 
 # get GEDA AID from geda-info.json
 GEDA_AID=$(jq -r '.aid' ./task-data/geda-info.json)
-
 # get challenge words from geda-challenge-info.json
 CHALLENGE_WORDS=$(jq -r '.words | join(" ")' ./task-data/geda-challenge-info.json)
 
@@ -26,7 +25,7 @@ echo "QVI responding to GEDA AID: ${GEDA_AID}"
 
 # Respond to the challenge
 docker compose exec tsx-shell \
-  /vlei/tsx-script-runner.sh qvi/qvi-respond-geda-challenge.ts \
+    /vlei/tsx-script-runner.sh qvi/qvi-respond-geda-challenge.ts \
     'docker' \
     "${QVI_SALT}" \
     "${GEDA_AID}" \
