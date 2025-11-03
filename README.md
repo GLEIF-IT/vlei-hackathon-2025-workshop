@@ -63,9 +63,9 @@ If you want to see the complete vLEI workflow in action immediately:
 # Start the environment and run the complete workflow
 ./stop.sh
 
-./deploy.sh 
-
 docker compose build # rebuilds builds the gleif/tsx image
+
+./deploy.sh 
 
 ./run-all.sh
 ```
@@ -152,9 +152,9 @@ To run the complete workflow:
 ```bash
 ./stop.sh
 
-./deploy.sh
-
 docker compose build # rebuilds builds the gleif/tsx image
+
+./deploy.sh
 
 ./run-all.sh
 ```
