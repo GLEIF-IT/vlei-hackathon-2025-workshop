@@ -61,7 +61,13 @@ If you want to see the complete vLEI workflow in action immediately:
 
 ```bash
 # Start the environment and run the complete workflow
-./stop.sh && ./deploy.sh && ./run-all.sh
+./stop.sh
+
+./deploy.sh 
+
+docker compose build # rebuilds builds the gleif/tsx image
+
+./run-all.sh
 ```
 
 This will create all identifiers, issue all credentials, and demonstrate the complete trust chain from GEDA to Person credentials.
@@ -144,12 +150,13 @@ The workshop demonstrates a complete vLEI trust chain with both OOR and ECR cred
 To run the complete workflow:
 
 ```bash
-./stop.sh && ./deploy.sh && ./run-all.sh
+./stop.sh
+
+./deploy.sh
+
+docker compose build # rebuilds builds the gleif/tsx image
+
+./run-all.sh
 ```
 
 This will execute all scripts in sequence, demonstrating the complete vLEI credential issuance and presentation process for both OOR and ECR credential types.
-
-
-### Module 2 - TBD
-
-### Module 3 - TBD
