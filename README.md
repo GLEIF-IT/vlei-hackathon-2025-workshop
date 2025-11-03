@@ -63,7 +63,7 @@ If you want to see the complete vLEI workflow in action immediately:
 # Start the environment and run the complete workflow
 ./stop.sh
 
-docker compose build # rebuilds builds the gleif/tsx image
+docker compose build # rebuilds builds the gleif/wkshp-tsx-shell image
 
 ./deploy.sh 
 
@@ -152,7 +152,7 @@ To run the complete workflow:
 ```bash
 ./stop.sh
 
-docker compose build # rebuilds builds the gleif/tsx image
+docker compose build # rebuilds builds the gleif/wkshp-tsx-shell image
 
 ./deploy.sh
 
