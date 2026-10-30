@@ -2,13 +2,13 @@
 
 # image tags
 x-vlei-image: &vlei-image
-  image: gleif/vlei:1.0.1
+  image: gleif/vlei:1.0.6
 x-witness-demo-image: &witness-demo-image
-  image: gleif/keri:1.2.9
+  image: gleif/keri:1.2.18
 x-keria-image: &keria-image
-  image: gleif/keria:0.3.0
+  image: gleif/keria:0.4.6
 x-sally-image: &sally-image
-  image: gleif/sally:1.0.2
+  image: gleif/sally:1.0.10
 
 x-python-envs: &python-envs
   PYTHONUNBUFFERED: 1 # Ensure output is logged in real-time
