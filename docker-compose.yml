@@ -2,13 +2,13 @@
 
 # image tags
 x-vlei-image: &vlei-image
-  image: gleif/vlei:1.0.6
+  image: gleif/vlei:1.0.7@sha256:d42bffb148f531b99f8817e17723cbf21bdf6c357a69de63895078ae8b42601c
 x-witness-demo-image: &witness-demo-image
-  image: gleif/keri:1.2.18
+  image: gleif/keri:1.2.19@sha256:a46ecb85e6210f8340465d7423195cad2a550cdff83e0dfdfa50b07062bc5e76
 x-keria-image: &keria-image
-  image: gleif/keria:0.4.6
+  image: gleif/keria:0.4.7@sha256:34b0fe8521c573ff25b4193533b9cb8a59f7b064e393d82b0212da895063b6ce
 x-sally-image: &sally-image
-  image: gleif/sally:1.0.10
+  image: gleif/sally:1.0.11@sha256:1f9df39b32410bf8eab5b58d3531a2792002fd76cda9f0d475b7a30c99f6ddf3
 
 x-python-envs: &python-envs
   PYTHONUNBUFFERED: 1 # Ensure output is logged in real-time
